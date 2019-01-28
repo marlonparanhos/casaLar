@@ -188,7 +188,7 @@
 
 <div id="botoes" class="hide">
   <p class="center" >
-    <a class="waves-effect waves-light btn" href="../index.php"><i class="fa fa-arrow-left"></i> Voltar</a>
+    <a class="waves-effect waves-light btn" href="../login/index.php"><i class="fa fa-arrow-left"></i> Voltar</a>
     <button type="button" id="cadastrar" class="btn waves-effect waves-light btn green darken-3"><i class="fa fa-check"></i> Cadastrar</button>
   </p>  
 </div>
@@ -325,7 +325,7 @@
           success: function(data) {
             if(data === 'true'){
               mbox.alert("Cadastro realizado com sucesso!", function(e){
-                window.location = "../index.php";
+                window.location = "../login/index.php";
               });
             }else{
               var $toastContent = $('<span>Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.</span>');
@@ -350,7 +350,7 @@
           success: function(data) {
             if(data === 'true'){
               mbox.alert("Cadastro realizado com sucesso!", function(e){
-                window.location = "../index.php";
+                window.location = "../login/index.php";
               });
             }else{
               var $toastContent = $('<span>Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.</span>');
@@ -377,7 +377,7 @@
           success: function(data) {
             if(data === 'true'){
               mbox.alert("Cadastro realizado com sucesso!", function(e){
-                window.location = "../index.php";
+                window.location = "../login/index.php";
               });
             }else{
               var $toastContent = $('<span>Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.</span>');

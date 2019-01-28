@@ -401,3 +401,20 @@ td, th {
 	bottom: 0;
 }
 
+.fundo-cor{
+	color: #2c3e50;
+	padding: 10px;
+	border-radius: 10px;
+	font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
+	font-weight: 900;
+	margin-bottom: 30px;
+}
+
+.fundo-cor:hover{
+	background: #2c3e50;
+	transition: 0.9s;
+	padding: 10px;
+	color: white;
+	border-radius: 10px;
+}
