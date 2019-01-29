@@ -2,7 +2,7 @@
     define("DB_HOSTI","localhost"); // host 
     define("DB_USERNAMEI","root"); // username
     define("DB_PASSWORDI",""); // password
-    define("DB_DATABASEI","casa_lar"); // db name
+    define("DB_DATABASEI","casaLar"); // db name
 
     class DB {
         private $dbi;

@@ -140,6 +140,23 @@
 			return $result;
 		}
 
+		public function ReadByEmail($email){
+			$sql = "
+				SELECT *
+				FROM
+					funcionario
+				WHERE
+					email_func = '$email'
+			";
+			
+			$DB = new DB();
+			$DB->open();
+			$Data = $DB->fetchData($sql);
+			
+			$DB->close();
+			return $Data[0]; 
+		}
+
 		function __construct(){ 
 			$this->id;
 			$this->nome_func;

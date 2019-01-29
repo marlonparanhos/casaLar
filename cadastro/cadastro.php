@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel = "shortcut icon" type = "image/x-icon" href = "/img/favicon.ico "/>
+  <link rel = "shortcut icon" type = "image/x-icon" href = "../img/favicon.ico "/>
   <title>Casa Lar | Cadastro</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="../css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -56,7 +56,7 @@
   </div>
 
   <div class="input-field col m4 s12">
-    <input type="text" id="rg" required placeholder=" ">
+    <input type="text" id="rg" required placeholder=" " onkeydown="upperCaseF(this)">
     <label>RG</label>
   </div>
 
@@ -76,12 +76,12 @@
  </div>
 
  <div class="input-field col m6 s12">
-  <input type="text" id="endereco" placeholder=" " required>
+  <input type="text" id="endereco" placeholder=" " required onkeydown="upperCaseF(this)">
   <label>Endereço *</label>
 </div>
 
 <div class="input-field col m3 s12">
-  <input type="text" id="bairro" placeholder=" " required>
+  <input type="text" id="bairro" placeholder=" " required onkeydown="upperCaseF(this)">
   <label>Bairro *</label>
 </div>
 
@@ -219,7 +219,10 @@
 
   $(document).ready(function(e){
     VMasker(document.querySelector("#celular")).maskPattern("(99) 9-9999-9999");
+    VMasker(document.querySelector("#celular_func")).maskPattern("(99) 9-9999-9999");
+    VMasker(document.querySelector("#celular_colab")).maskPattern("(99) 9-9999-9999");
     VMasker(document.querySelector("#cpf")).maskPattern("999.999.999.99");
+    VMasker(document.querySelector("#cpf_func")).maskPattern("999.999.999.99");
     VMasker(document.querySelector("#nascimento")).maskPattern("99/99/9999");
 
     $("#tipo_usuario").change(function(e){

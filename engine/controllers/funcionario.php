@@ -11,7 +11,7 @@
 	$action = $_POST['action'];
 	
 	$Item = new Funcionario();
-	$Item->SetValues($id, $nome_func, $cpf_func, $celular_func, $email_func, $senha_func);
+	$Item->SetValues($id, $nome_func, $cpf_func, $celular_func, $email_func, password_hash($senha_func, PASSWORD_DEFAULT));
 	
 	switch($action){
 		case 'create':

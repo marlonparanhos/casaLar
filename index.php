@@ -5,25 +5,25 @@ if($showerros) {
   error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
 }
 
-#session_start(); atualizar aqui
+session_start();
 
-// session_name(sha1($_SERVER['HTTP_USER_AGENT'].$_SESSION['email']));
+session_name(sha1($_SERVER['HTTP_USER_AGENT'].$_SESSION['email']));
 
-// if(empty($_SESSION)){
-//   ?>
-//   <script>
-//     document.location.href = 'login/index.php';
-//   </script>
-//   <?php
-// }
+if(empty($_SESSION)){
+  ?>
+  <script>
+    document.location.href = 'login/index.php';
+  </script>
+  <?php
+}
 
-// if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1201)) {
-//   session_unset();
-//   session_destroy();
-// }
-// $_SESSION['LAST_ACTIVITY'] = time();
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1201)) {
+  session_unset();
+  session_destroy();
+}
+$_SESSION['LAST_ACTIVITY'] = time();
 
-// require_once "engine/config.php";
+require_once "engine/config.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -35,7 +35,7 @@ if($showerros) {
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="theme-color" content="#235d3d">
-  <link rel="icon" type="image/jpg" href="img/favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico"/>
   <title>Casa Lar</title>
 
   <link href="css/bootstrap.css" rel="stylesheet">
@@ -115,7 +115,6 @@ if($showerros) {
 
         type: 'POST'
       });
-
     });
   });
 

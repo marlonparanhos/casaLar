@@ -1,106 +1,38 @@
-// JavaScript Document
 $(document).ready(function(e) {
-
-  navigator.sayswho = (function(){
-    var ua= navigator.userAgent, tem,
-    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-    if(/trident/i.test(M[1])){
-      tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
-      return 'IE '+(tem[1] || '');
-    }
-    if(M[1]=== 'Chrome'){
-      tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
-      if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
-    }
-    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
-    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
-    return M.join(' ');
-  })();
-
-  function validateEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
-
   $('#Logar').click(function(e) {
-    var email = $('#email_login').val(),
-    senha = $('#senha_login').val();
+    var email = $('#email_login').val();
+    var senha = $('#senha_login').val();
 
     if(email === "" || senha === "") {
-     return Materialize.toast('<span> <i class="fas fa-exclamation-triangle"></i> Todos os campos devem ser preenchidos!</span>', 4000, 'rounded');
+     swal("Atenção!", "Todos os campos devem ser preenchidos!", "info");
    } else {
-    if(!validateEmail(email)){
-      return Materialize.toast('<span> <i class="fas fa-exclamation-triangle"></i> Endereço de email inválido!</span>', 4000, 'rounded');
-    }
-
-    setTimeout(function(){
-      $.ajax({
-        url: '../engine/controllers/login.php',
-        data: {
-         email : email,
-         senha: senha
-       },
-       error: function() {
-         var $toastContent = $('<span>Erro na conexão com o servidor. Tente novamente em alguns segundos.</span>');
-         Materialize.toast($toastContent, 4000, 'rounded');
-       },
-       success: function(data) {
-        console.log(data);
-        obj = JSON.parse(data);
-        if(obj.res === 'true') {
-
-              // PONTO DE CONTROLE -LOGINs EFETUADOS
-              var PC_ip = $("#ip").text(),
-              PC_cidade = $("#city").text(),
-              PC_estado = $("#region").text(),
-              PC_pais = $("#country").text(),
-              PC_provedor = $("#org").text();
-
-              $.ajax({
-                url: '../engine/controllers/pc_loginefetuado.php',
-                data : {
-                  id_usuario : obj.id_usuario,
-                  tipo_usuario : obj.tipo_usuario,
-                  ip : PC_ip,
-                  cidade : PC_cidade,
-                  estado : PC_estado,
-                  pais : PC_pais,
-                  provedor : PC_provedor,
-                  navegador : navigator.sayswho,
-
-                  action : 'create'
-                },
-                success: function(data){
-                  console.log(data);
-                },
-                type : 'POST'
-              });
-
-              if (email == "socorrer.proace@ufvjm.edu.br") {
-                document.location.href = '../ocorrencias/ocorrencias.php';
-              } else if (email == "josilene.duarte@ufvjm.edu.br" || email == "lais.velano@ufvjm.edu.br" || email == "vania.nunes@ufvjm.edu.br") {
-                document.location.href = '../acessibilidade/consulta_solicitacoes.php';
-              } else {
-                document.location.href = '../';
-              }
-
-            } else if(obj.res === 'no_user_found') {
-              var $toastContent = $('<span> <i class="fas fa-exclamation-triangle"></i> Usuário não encontrado.</span>');
-              Materialize.toast($toastContent, 4000, 'rounded');
-            } else if(obj.res === 'wrong_password') {
-              var $toastContent = $('<span> <i class="fas fa-exclamation-triangle"></i> Senha Incorreta.</span>');
-              Materialize.toast($toastContent, 4000, 'rounded');
-            } else {
-              var $toastContent = $('<span>Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes.</span>');
-              Materialize.toast($toastContent, 4000, 'rounded');
-            }
-          },
-
-          type: 'POST'
-        });
-    }, 800);
-  }
-});
+     $.ajax({
+      url: '../engine/controllers/login.php',
+      data: {
+       email : email,
+       senha : senha
+     },
+     success: function(data) {
+      console.log(data);
+      if(data === 'true') {
+        toastr.info('Redirecionando...<br>&nbsp', 'Login efetuado com sucesso!', {positionClass: 'toast-top-full-width',
+    progressBar: true,
+    timeOut: "2500",});
+        setTimeout(function() {
+          document.location.href = '../';
+        }, 2600);
+      } else if(data === 'no_user_found') {
+        swal("Atenção!", "Usuário não encontrado!", "error");
+      } else if(data === 'wrong_password') {
+        swal("Atenção!", "Senha incorreta", "error");
+      } else {
+        swal("Atenção!", "Erro ao conectar com banco de dados. Aguarde e tente novamente em alguns instantes!", "error");
+      }
+    },
+    type: 'POST'
+  });
+   }
+ });
 
   $('#senha_login').keypress(function (e) {
     var key = e.which;
